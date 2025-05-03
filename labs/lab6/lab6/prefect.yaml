@@ -1,0 +1,28 @@
+prefect-version: 3.2.14
+name: flows
+
+deployments:
+- name: ml-pipeline
+  version: '1.0'
+  description: End-to-end ML pipeline orchestrated with Prefect 3.2.14
+  entrypoint: ml_pipeline.py:ml_pipeline
+  parameters:
+    dataset_path: iris.csv
+    accuracy_threshold: 0.9
+    test_size: 0.2
+  schedules:
+  - cron: 0 9 * * *
+    timezone:
+    day_or: true
+    active: true
+  work_pool:
+    name: default
+    work_queue_name: default
+    type: process
+    auto_create: true
+    job_variables: {}
+  tags: []
+  concurrency_limit:
+  pull:
+  - prefect.deployments.steps.set_working_directory:
+      directory: /home/taha/Documents/AI601/lab6
