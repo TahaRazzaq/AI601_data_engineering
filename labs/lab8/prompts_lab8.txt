@@ -1,0 +1,51 @@
+24280020: Hanzla Khan
+24030023: Taha Razzaq
+
+prompt = f"""
+      You clean and validate data.
+
+      Here is a record:
+
+      {record.to_dict()}
+
+      Do these 4 things:
+      1 - Fill missing values (e.g. guess city from address if missing)
+      2 - Standardize text (fix spelling, capitalization, categories)
+      3 - Format data (e.g. 'Street, Borough, NY' format for addresses, ISO 8601 for dates)
+      4 - Add a new column 'category' with value 'Noise' or 'Non-Noise' based on complaint
+
+      IMPORTANT RULE:
+      Return valid JSON only. Do not return anything except JSON.
+
+      Good:
+      {{
+          ...
+      }}
+
+      Bad:
+      Here is your cleaned data:
+      {{
+          ...
+      }}
+      Note: This data was cleaned...
+
+      Check your output. If it's not only JSON, you have failed.
+      """
+
+prompt = f"""
+    This is a cleaned NYC 311 record:
+
+    {record}
+
+    Write Python tests to check its validation.
+
+    Only use `cleaned_df`, and not 'df' as the dataframe. Do not create a new dataframe.
+
+    Check for the followings:
+    - Missing values
+    - Address format
+    - ISO 8601 datetime
+    - Complaint category is 'Noise' or 'Non-Noise'
+
+    Write nothing but code.
+    """
